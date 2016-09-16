@@ -9,6 +9,9 @@
 import Foundation
 import AddressBook
 
+import Foundation
+import AddressBook
+
 extension NSString {
 
 	convenience init?(optionalString : String?) {
@@ -35,22 +38,22 @@ func errorIfNoSuccess(call : (UnsafeMutablePointer<Unmanaged<CFError>?>) -> Bool
 //MARK: methods to convert arrays of ABRecords
 
 func convertRecordsToSources(records : CFArray?) -> [SwiftAddressBookSource]? {
-	let swiftRecords = (records as? [ABRecord])?.map {(record : ABRecord) -> SwiftAddressBookSource in
-        return SwiftAddressBookRecord.from(record) as! SwiftAddressBookSource
-    }
+	let swiftRecords = (records as NSArray? as? [ABRecord])?.map {(record : ABRecord) -> SwiftAddressBookSource in
+		return SwiftAddressBookSource(record: record)
+	}
 	return swiftRecords
 }
 
 func convertRecordsToGroups(records : CFArray?) -> [SwiftAddressBookGroup]? {
-	let swiftRecords = (records as? [ABRecord])?.map {(record : ABRecord) -> SwiftAddressBookGroup in
-        return SwiftAddressBookRecord.from(record) as! SwiftAddressBookGroup
-    }
+	let swiftRecords = (records as NSArray? as? [ABRecord])?.map {(record : ABRecord) -> SwiftAddressBookGroup in
+		return SwiftAddressBookGroup(record: record)
+	}
 	return swiftRecords
 }
 
 func convertRecordsToPersons(records : CFArray?) -> [SwiftAddressBookPerson]? {
-	let swiftRecords = (records as? [ABRecord])?.map {(record : ABRecord) -> SwiftAddressBookPerson in
-		return SwiftAddressBookRecord.from(record) as! SwiftAddressBookPerson
+	let swiftRecords = (records as NSArray? as? [ABRecord])?.map {(record : ABRecord) -> SwiftAddressBookPerson in
+		return SwiftAddressBookPerson(record: record)
 	}
 	return swiftRecords
 }
